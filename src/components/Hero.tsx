@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="hero-content">
         <img src={logo} alt="LE RAT — logotipo oficial" className="hero-logo" />
 
-        <h1 className="hero-title">LE RAT</h1>
+        <h1 className="hero-title">Le Rat</h1>
 
         <p className="hero-description">
           MINIMAL SYNTH · POST-PUNK · ELECTRONIC PUNK
