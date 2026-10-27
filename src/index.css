@@ -1,1 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap');
 @import "tailwindcss";
+
+.data-stream.is-symbols .stream-text {
+  font-family: 'Noto Sans Symbols 2', sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.data-stream.is-decoded .stream-text {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+.data-stream-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #080808;
+  z-index: -1;
+}
+
+.data-stream {
+  position: absolute;
+  display: block;
+  max-width: 90vw;
+  overflow: hidden;
+  /* font-family: "Bebas Neue", Impact, sans-serif; */
+  font-family: 'Special Elite', monospace;
+  font-weight: 400;
+  /* line-height: 0.9; */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.depth-0 {
+  color: #888;
+  font-family: "Special Elite", monospace;
+  font-size: clamp(9px, 0.7vw, 11px);
+  filter: blur(1.5px);
+  --stream-opacity: 0.58;
+  animation-name: stream-up;
+}
+
+.depth-1 {
+  color: #b5b5b5;
+  font-size: clamp(13px, 1.2vw, 18px);
+  --stream-opacity: 0.42;
+  animation-name: stream-down;
+}
+
+.depth-2 {
+  color: #ededed;
+  font-size: clamp(22px, 2.5vw, 38px);
+  letter-spacing: 0.02em;
+  --stream-opacity: 0.25;
+  animation-name: stream-drift;
+}
+
+.depth-3 {
+  color: #ff5738;
+  font-size: clamp(36px, 5vw, 76px);
+  letter-spacing: -0.025em;
+  filter: blur(0.6px);
+  --stream-opacity: 0.13;
+  animation-name: stream-up;
+}
+
+.direction-1 {
+  animation-name: stream-down;
+}
+
+.direction-2 {
+  animation-name: stream-drift;
+}
+
+.direction-1 {
+  animation-name: stream-down;
+}
+
+.direction-2 {
+  animation-name: stream-drift;
+}
+
+@keyframes stream-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 45vh, 0);
+  }
+  15% {
+    opacity: var(--stream-opacity, 0.4);
+  }
+  75% {
+    opacity: calc(var(--stream-opacity, 0.4) * 0.65);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-8vw, -55vh, 0);
+  }
+}
+
+@keyframes stream-down {
+  0% {
+    opacity: 0;
+    transform: translate3d(4vw, -45vh, 0);
+  }
+  20% {
+    opacity: var(--stream-opacity, 0.4);
+  }
+  75% {
+    opacity: calc(var(--stream-opacity, 0.4) * 0.65);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-3vw, 55vh, 0);
+  }
+}
+
+@keyframes stream-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(-18vw, 15vh, 0);
+  }
+  20% {
+    opacity: var(--stream-opacity, 0.4);
+  }
+  75% {
+    opacity: calc(var(--stream-opacity, 0.4) * 0.65);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(18vw, -15vh, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .data-stream {
+    max-width: 75vw;
+  }
+
+  .depth-2 {
+    font-size: 12px;
+  }
+
+  .depth-3 {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-stream {
+    animation: none;
+    opacity: 0.2;
+    transform: none;
+  }
+}
+
+.stream-text {
+  display: inline-block;
+  transition:
+    opacity 120ms steps(2, end),
+    filter 120ms linear;
+}
+
+.data-stream.is-binary .stream-text {
+  /* font-family: "Special Elite", monospace; */
+  letter-spacing: 0.06em;
+}
+
+.data-stream.is-decoded .stream-text {
+  /* font-family: "Bebas Neue", Impact, sans-serif; */
+  letter-spacing: 0.025em;
+}
+
+.data-stream.is-decoded {
+  animation-timing-function: steps(1, end), linear;
+}
+
+/* Breve interferencia al cambiar de representación */
+.data-stream.is-decoded .stream-text {
+  animation: signal-decode 350ms steps(2, end);
+}
+
+@keyframes signal-decode {
+  0% {
+    opacity: 0.15;
+    filter: blur(3px);
+    transform: skewX(-12deg);
+  }
+  35% {
+    opacity: 0.9;
+    filter: blur(0);
+    transform: skewX(5deg);
+  }
+  65% {
+    opacity: 0.4;
+    filter: blur(1px);
+    transform: skewX(-3deg);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: skewX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-stream.is-decoded .stream-text {
+    animation: none;
+  }
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5rem 1.25rem;
+  background: #080808;
+  color: #f2f2f2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-logo {
+  display: block;
+  width: clamp(110px, 19vw, 240px);
+  height: auto;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  object-fit: contain;
+  mix-blend-mode: screen;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(5rem, 15vw, 7rem);
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: 0.035em;
+}
+
+.hero-description {
+  margin: clamp(1.5rem, 4vh, 2.5rem) 0 0;
+  color: #b9b9b9;
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: clamp(2rem, 5vh, 3rem);
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgb(255 87 56 / 65%);
+  color: #ff795f;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.hero-link:hover {
+  border-color: #ff5738;
+  background: rgb(255 87 56 / 10%);
+  color: #fff;
+}
+
+.hero-coordinate {
+  position: absolute;
+  z-index: 2;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  color: #777;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+  .hero {
+    padding-inline: 1rem;
+  }
+
+  .hero-logo {
+    width: clamp(115px, 28vw, 190px);
+  }
+
+  .hero-title {
+    font-size: clamp(5rem, 19vw, 9rem);
+  }
+
+  .hero-coordinate {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 100svh;
+    padding: 4rem 1rem 5rem;
+  }
+
+  .hero-logo {
+    width: clamp(105px, 34vw, 150px);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(4.5rem, 21vw, 7rem);
+    letter-spacing: 0.015em;
+  }
+
+  .hero-description {
+    max-width: 300px;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    line-height: 2;
+    letter-spacing: 0.07em;
+  }
+
+  .hero-link {
+    margin-top: 2rem;
+  }
+
+  .hero-coordinate {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-link {
+    transition: none;
+  }
+}

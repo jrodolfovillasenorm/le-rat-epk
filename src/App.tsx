@@ -1,11 +1,13 @@
-function App() {
-  return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <h1 className="text-6xl font-bold text-orange-500">
-        LE RAT LUX ATOMICA
-      </h1>
-    </div>
-  )
-}
+import Hero from "./components/Hero";
 
-export default App
+export default function App() {
+  return (
+    <main>
+      <Hero />
+
+      <section id="music" className="min-h-screen bg-black text-white">
+        {/* Aquí construiremos la sección musical */}
+      </section>
+    </main>
+  );
+}
